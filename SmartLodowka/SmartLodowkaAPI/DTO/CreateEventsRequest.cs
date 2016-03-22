@@ -6,11 +6,9 @@ using System.Web;
 
 namespace SmartLodowkaAPI.DTO
 {
-    public class Event
+    public class CreateEventsRequest
     {
-        public int Id { get; set; }
-        
         [Required]
-        public string Name { get; set; }
+        public List<Event> Events { get; set; }
     }
 }

@@ -16,15 +16,29 @@ namespace SmartLodowkaAPI.Controllers
         {
             _service = new EventsService();
         }
-
-        public List<Event> Get()
+        
+        public IHttpActionResult Get()
         {
-            return _service.GetAllEvents();
+            return Ok(_service.GetAllEvents());
         }
 
-        public Event Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return _service.GetEvent(id);
+            var tmp =  _service.GetEvent(id);
+            if(tmp == null)
+            {
+                return NotFound();
+            }
+            return Ok(tmp);
+        }
+
+        public IHttpActionResult Post(CreateEventsRequest request)
+        {
+            if(ModelState.IsValid == false)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(_service.InsertEvents(request.Events));
         }
     }
 }

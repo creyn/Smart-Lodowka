@@ -10,5 +10,6 @@ namespace SmartLodowkaAPI.Services
     {
         List<Event> GetAllEvents();
         Event GetEvent(int id);
+        List<Event> InsertEvents(List<Event> newEvents);
     }
 }

@@ -3,26 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SmartLodowkaAPI.DTO;
+using Simple.Data;
+using SmartLodowkaAPI.Config;
 
 namespace SmartLodowkaAPI.Services
 {
     public class EventsService : IEventsService
     {
-        private readonly List<Event> _tmpEvents = new List<Event>
+        private dynamic OpenDatabase()
         {
-            new Event { Id = 1, Name = "Event 1" },
-            new Event { Id = 2, Name = "Event 2" },
-            new Event { Id = 3, Name = "Event 3" }
-        };
+            return Database.OpenNamedConnection(Constants.Config.WebioDatabaseConnectionString);
+        }
 
         public List<Event> GetAllEvents()
         {
-            return _tmpEvents;
+            return OpenDatabase().SmartLodowka_Events.All();
         }
 
         public Event GetEvent(int id)
         {
-            return _tmpEvents.FirstOrDefault(e => e.Id == id);
+            return OpenDatabase().SmartLodowka_Events.FindById(Id: id);
+        }
+
+        public List<Event> InsertEvents(List<Event> newEvents)
+        {
+            return OpenDatabase().SmartLodowka_Events.Insert(newEvents);
         }
     }
 }
