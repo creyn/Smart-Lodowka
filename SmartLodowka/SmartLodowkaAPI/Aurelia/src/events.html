@@ -1,0 +1,8 @@
+﻿<template>
+    <h2>${heading}</h2>
+    <ul>
+        <li repeat.for="event of events">
+            { Id = ${event.Id}, Name = ${event.Name} }
+        </li>
+    </ul>
+</template>
